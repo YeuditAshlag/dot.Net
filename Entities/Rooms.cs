@@ -1,4 +1,4 @@
-﻿namespace Appfor_thehotel.Controllers.Entities
+﻿namespace Appfor_thehotel.Entities
 {
     public class Rooms
     {
@@ -11,7 +11,7 @@
         {
             this.idRoom = idRoom;
             this.numOfBeds = numOfBeds;
-            this.IsFilled = isfilled;
+            IsFilled = isfilled;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Appfor_thehotel.Controllers.Entities;
+﻿using Appfor_thehotel.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,19 +9,23 @@ namespace Appfor_thehotel.Controllers
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        private static List<Persons> allPersons = new List<Persons>();
+        public PersonsController(DataContext contxt)
+        {
+
+        }
+
         // GET: api/<PersonsController>
         [HttpGet]
         public IEnumerable<Persons> Get()
         {
-            return allPersons;
+            return DataContext.allPersons;
         }
 
         // GET api/<PersonsController>/5
         [HttpGet("{id}")]
         public ActionResult<Persons> Get(int id)
         {
-            Persons person = allPersons.Find(p => p.idPerson == id);
+            Persons person = DataContext.allPersons.Find(p => p.idPerson == id);
 
             if (person == null)
             {
@@ -35,7 +39,7 @@ namespace Appfor_thehotel.Controllers
         [HttpPost]
         public void Post([FromBody] Persons person)
         {
-            allPersons.Add(person); 
+            DataContext.allPersons.Add(person); 
         }
 
         // PUT api/<PersonsController>/5
@@ -43,7 +47,7 @@ namespace Appfor_thehotel.Controllers
         public ActionResult<Persons> Put(int id, [FromBody] Persons p)
         {
 
-            Persons person = allPersons.Find(p => p.idPerson == id);
+            Persons person = DataContext.allPersons.Find(p => p.idPerson == id);
 
             if (person == null)
             {
@@ -61,14 +65,14 @@ namespace Appfor_thehotel.Controllers
         [HttpDelete("{id}")]
         public ActionResult <Persons> Delete(int id)
         {
-            Persons person = allPersons.Find(p => p.idPerson == id);
+            Persons person = DataContext.allPersons.Find(p => p.idPerson == id);
 
             if (person == null)
             {
                 return NotFound();
             }
 
-            allPersons.Remove(person);
+            DataContext.allPersons.Remove(person);
 
             return NoContent();
         }

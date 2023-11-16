@@ -1,4 +1,4 @@
-﻿using Appfor_thehotel.Controllers.Entities;
+﻿using Appfor_thehotel.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,19 +9,26 @@ namespace Appfor_thehotel.Controllers
     [ApiController]
     public class DatesController : ControllerBase
     {
-        private static List<Dates> dateList= new List<Dates>();
+
+        public DatesController(DataContext contxt)
+        {
+
+        }
+
+
+
         // GET: api/<DatesController>
         [HttpGet]
         public IEnumerable<Dates> Get()
         {
-            return dateList;
+            return DataContext.dateList;
         }
 
         // GET api/<DatesController>/5
         [HttpGet("{id}")]
         public ActionResult<Dates> Get(DateTime start)
         {
-            Dates date = dateList.Find(p => p.start ==start);
+            Dates date = DataContext.dateList.Find(p => p.start ==start);
 
             if (date == null)
             {
@@ -35,7 +42,7 @@ namespace Appfor_thehotel.Controllers
         [HttpPost]
         public void Post([FromBody] DateTime start,DateTime end)
         {
-            dateList.Add(new Dates(start,end));
+            _context.dateList.Add(new Dates(start,end));
         }
 
         // PUT api/<DatesController>/5
